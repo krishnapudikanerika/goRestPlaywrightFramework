@@ -61,11 +61,55 @@ pipeline {
 
         }
 
+        stage('Generate Statistics') {
+
+            steps {
+
+                powershell '.\\scripts\\GetTestStatistics.ps1'
+
+                bat 'type total.txt'
+                bat 'type passed.txt'
+                bat 'type failed.txt'
+                bat 'type percentage.txt'
+
+            }
+
+        }
+
     }
 
     post {
 
         always {
+
+            script {
+
+                env.TOTAL =
+                    fileExists('total.txt')
+                        ? readFile('total.txt').trim()
+                        : '0'
+
+                env.PASSED =
+                    fileExists('passed.txt')
+                        ? readFile('passed.txt').trim()
+                        : '0'
+
+                env.FAILED =
+                    fileExists('failed.txt')
+                        ? readFile('failed.txt').trim()
+                        : '0'
+
+                env.PERCENTAGE =
+                    fileExists('percentage.txt')
+                        ? readFile('percentage.txt').trim()
+                        : '0'
+
+                echo "TOTAL=${env.TOTAL}"
+                echo "PASSED=${env.PASSED}"
+                echo "FAILED=${env.FAILED}"
+                echo "PERCENTAGE=${env.PERCENTAGE}"
+
+            }
 
             publishHTML(
                 [
@@ -127,39 +171,61 @@ pipeline {
 
                 <br/>
 
-                <h3>Executed Test Suites</h3>
+                <h3>
+                Execution Summary
+                </h3>
 
-                <ul>
-                    <li>API Tests</li>
-                    <li>UI Tests</li>
-                    <li>Integration Tests</li>
-                </ul>
+                <table border="1"
+                       cellpadding="8"
+                       cellspacing="0"
+                       style="border-collapse:collapse;">
+
+                    <tr>
+                        <td><b>Total Tests</b></td>
+                        <td>${env.TOTAL}</td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Passed Tests</b></td>
+                        <td style="color:green;">
+                        ${env.PASSED}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Failed Tests</b></td>
+                        <td style="color:red;">
+                        ${env.FAILED}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Pass Percentage</b></td>
+                        <td>${env.PERCENTAGE}%</td>
+                    </tr>
+
+                </table>
 
                 <br/>
 
-                <h3>Useful Links</h3>
+                <h3>
+                Useful Links
+                </h3>
 
                 <ul>
 
                     <li>
-                        Build URL :
-                        ${env.BUILD_URL}
-                        ${env.BUILD_URL}
-                        </a>
+                    Build URL :
+                    ${env.BUILD_URL}
+                    ${env.BUILD_URL}
+                    </a>
                     </li>
 
                     <li>
-                        Console Log :
-                        ${env.BUILD_URL}console
-                        ${env.BUILD_URL}console
-                        </a>
-                    </li>
-
-                    <li>
-                        Playwright Report :
-                        <aenv.BUILD_URL}Playwright_Automation_Report/
-                        Open Playwright Report
-                        </a>
+                    Console Log :
+                    ${env.BUILD_URL}console
+                    ${env.BUILD_URL}console
+                    </a>
                     </li>
 
                 </ul>

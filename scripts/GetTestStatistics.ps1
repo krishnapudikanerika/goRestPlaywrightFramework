@@ -1,5 +1,5 @@
 $json =
-Get-Content ".\reports\results.json" -Raw |
+Get-Content ".\test-results\results.json" -Raw |
 ConvertFrom-Json
 
 $passed =
