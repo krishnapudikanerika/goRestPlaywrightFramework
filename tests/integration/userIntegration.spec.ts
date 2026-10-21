@@ -3,6 +3,9 @@ import { test, expect } from '@playwright/test';
 import { userData }
 from '../../testData/userData';
 
+import { uiData }
+from '../../testData/uiData';
+
 import { UserAPI } from '../../api/UserAPI';
 import { UserPayload } from '../../api/payloads/UserPayload';
 import { URLs } from '../../config/urls';
@@ -37,7 +40,7 @@ test(
         );
 
         await expect(page)
-            .toHaveTitle(/Go REST/i);
+            .toHaveTitle(uiData.titles.homePageTitle);
 
     }
 );
