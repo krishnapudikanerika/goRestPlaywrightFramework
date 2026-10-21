@@ -12,6 +12,16 @@ export const uiData = {
         docsPage:
             /docs/
 
+    },
+
+    credentials: {
+
+        username:
+            'krishnapudikanerika',
+
+        password:
+            'q!w@e#r$t%Y6'
+
     }
 
 };
