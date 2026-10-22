@@ -1,42 +1,50 @@
 import {
     Page,
+    Locator,
     expect
-}
-from '@playwright/test';
+} from '@playwright/test';
 
 import {
     uiData
-}
-from '../testData/uiData';
+} from '../testData/uiData';
 
 import {
     URLs
-}
-from '../config/urls';
+} from '../config/urls';
 
 export class DocsPage {
 
+    readonly page: Page;
+
+    readonly docsLink: Locator;
+
     constructor(
-        private page: Page
-    ) {}
+        page: Page
+    ) {
 
-   async openDocs() {
+        this.page = page;
 
-    await this.page.goto(
-        URLs.HOME
-    );
+        this.docsLink =
+            page
+                .getByRole('navigation')
+                .getByRole(
+                    'link',
+                    {
+                        name: 'Docs'
+                    }
+                );
 
-    await this.page
-        .getByRole('navigation')
-        .getByRole(
-            'link',
-            {
-                name: 'Docs'
-            }
-        )
-        .click();
+    }
 
-}
+    async openDocs() {
+
+        await this.page.goto(
+            URLs.HOME
+        );
+
+        await this.docsLink.click();
+
+    }
 
     async verifyDocsPage() {
 
@@ -45,8 +53,6 @@ export class DocsPage {
         ).toHaveURL(
             uiData.urls.docsPage
         );
-
-       
 
     }
 
