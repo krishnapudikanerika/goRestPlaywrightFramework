@@ -1,7 +1,18 @@
-import { Page, expect } from '@playwright/test';
-import { uiData }
+import {
+    Page,
+    expect
+}
+from '@playwright/test';
+
+import {
+    uiData
+}
 from '../testData/uiData';
-import { URLs } from '../config/urls';
+
+import {
+    URLs
+}
+from '../config/urls';
 
 export class DocsPage {
 
@@ -9,25 +20,33 @@ export class DocsPage {
         private page: Page
     ) {}
 
-    async openDocs() {
+   async openDocs() {
 
-        await this.page.goto(
-            URLs.HOME
-        );
+    await this.page.goto(
+        URLs.HOME
+    );
 
-        await this.page
-            .getByRole('navigation')
-            .getByRole('link', {
+    await this.page
+        .getByRole('navigation')
+        .getByRole(
+            'link',
+            {
                 name: 'Docs'
-            })
-            .click();
+            }
+        )
+        .click();
 
-    }
+}
 
     async verifyDocsPage() {
 
-        await expect(this.page)
-            .toHaveURL(uiData.urls.docsPage);
+        await expect(
+            this.page
+        ).toHaveURL(
+            uiData.urls.docsPage
+        );
+
+       
 
     }
 

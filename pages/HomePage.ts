@@ -1,7 +1,18 @@
-import { Page, expect } from '@playwright/test';
-import { uiData }
+import {
+    Page,
+    expect
+}
+from '@playwright/test';
+
+import {
+    uiData
+}
 from '../testData/uiData';
-import { URLs } from '../config/urls';
+
+import {
+    URLs
+}
+from '../config/urls';
 
 export class HomePage {
 
@@ -19,8 +30,11 @@ export class HomePage {
 
     async verifyHomePage() {
 
-        await expect(this.page)
-            .toHaveTitle(uiData.titles.homePageTitle);
+        await expect(
+            this.page
+        ).toHaveTitle(
+            uiData.titles.homePageTitle
+        );
 
     }
 

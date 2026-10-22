@@ -3,14 +3,14 @@ import {
 } from '../../fixtures/testFixtures';
 
 test(
-    'Verify Home Page',
+    'Verify Docs Page',
     async ({
-        homePage
+        docsPage
     }) => {
 
-        await homePage.open();
+        await docsPage.openDocs();
 
-        await homePage.verifyHomePage();
+        await docsPage.verifyDocsPage();
 
     }
 );

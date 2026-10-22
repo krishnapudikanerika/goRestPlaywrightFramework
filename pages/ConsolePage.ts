@@ -100,12 +100,26 @@ export class ConsolePage {
 
     }
 
-    async navigateToConsole() {
+    // async navigateToConsole() {
 
       
-        await this.consoleLink.click();
+    //     await this.consoleLink.click();
 
-    }
+    // }
+
+    async navigateToConsole() {
+
+    await this.page.waitForLoadState(
+        'networkidle'
+    );
+
+    await this.consoleLink.waitFor({
+        state: 'visible'
+    });
+
+    await this.consoleLink.click();
+
+}
 
     async enterApiUrl(
         apiUrl: string

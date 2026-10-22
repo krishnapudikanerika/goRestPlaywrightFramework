@@ -1,6 +1,7 @@
 import {
     test
-} from '../../fixtures/testFixtures';
+}
+from '../../fixtures/testFixtures';
 
 test(
     'Verify Home Page',
